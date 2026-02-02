@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Time</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: system-ui, sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* Nền animated */
+
+        .bg {
+            position: absolute;
+            inset: -50%;
+            background: linear-gradient(120deg, #0f2027, #203a43, #2c5364, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        /* Khung iPhone nhỏ gọn + có khoảng thở */
+
+        .phone {
+            width: 260px;
+            max-width: 80vw;
+            aspect-ratio: 9 / 19.5;
+
+            background: black;
+            border-radius: 38px;
+
+            padding: 12px;
+            margin: clamp(30px, 8vh, 80px);
+
+            box-shadow:
+                0 0 35px rgba(255, 255, 255, 0.12),
+                inset 0 0 0 2px #111;
+
+            position: relative;
+        }
+
+        /* Tai thỏ */
+
+        .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 20px;
+            background: #000;
+            border-radius: 0 0 14px 14px;
+            z-index: 10;
+        }
+
+        /* Màn hình */
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 26px;
+            overflow: hidden;
+            background: black;
+        }
+
+        /* Video TikTok */
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* không zoom */
+            background: black;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+</head>
+
+<body>
+    <div class="bg"></div>
+
+    <div class="phone">
+        <div class="notch"></div>
+
+        <div class="screen">
+            <video controls playsinline>
+                <source src="GoodTime.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <style>
+        .credits {
+            position: absolute;
+            bottom: -60px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge.chatgpt {
+            background: linear-gradient(135deg, #0fd850, #00c6ff);
+        }
+
+        .badge.gemini {
+            background: linear-gradient(135deg, #ff7a18, #ffb347);
+        }
+
+        .badge.sora {
+            background: linear-gradient(135deg, #7f00ff, #e100ff);
+        }
+
+        .badge.capcut {
+            background: linear-gradient(135deg, #222, #555);
+        }
+    </style>
+
+    <script>
+        anime({
+            targets: '.phone',
+            scale: [0.8, 1],
+            opacity: [0, 1],
+            easing: 'easeOutExpo',
+            duration: 1200
+        });
+
+        anime({
+            targets: '.bg',
+            backgroundPosition: ['0% 50%', '100% 50%'],
+            easing: 'linear',
+            duration: 15000,
+            direction: 'alternate',
+            loop: true
+        });
+
+        anime({
+            targets: '.badge',
+            translateY: [20, 0],
+            opacity: [0, 1],
+            delay: anime.stagger(150, { start: 800 }),
+            easing: 'easeOutQuad'
+        });
+    </script>
+
+</body>
+
+</html>
